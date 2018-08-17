@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from sklearn.externals import joblib
 import scipy.sparse as sparse
 import json
+import implicit
 
 app = Flask(__name__)
 
