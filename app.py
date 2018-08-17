@@ -6,9 +6,6 @@ import implicit
 
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    app.run()
-
 @app.route("/")
 
 def hello():
@@ -35,4 +32,7 @@ def related():
     related = dict(related)
     related = {str(key): str(value) for key, value in related.items()}
     return json.dumps(related)
+
+if __name__ == '__main__':
+    app.run()
 
