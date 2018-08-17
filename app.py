@@ -5,6 +5,11 @@ import json
 
 app = Flask(__name__)
 
+if __name__ == '__main__':
+    implicit_model = joblib.load('./model/user_submissions_model.pkl')
+    user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
+    app.run()
+
 @app.route("/")
 
 def hello():
@@ -28,7 +33,3 @@ def related():
     related = {str(key): str(value) for key, value in related.items()}
     return json.dumps(related)
 
-if __name__ == '__main__':
-    implicit_model = joblib.load('./model/user_submissions_model.pkl')
-    user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
-    app.run(debug=True)
