@@ -10,7 +10,7 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-@app.route('/recommend', methods=['POST'])
+@app.route('/recommend', methods=['GET'])
 
 def recommend():
     user_id = request.args.get('user_id')
@@ -19,7 +19,7 @@ def recommend():
     recommendations = {str(key): str(value) for key, value in recommendations.items()}
     return json.dumps(recommendations)
 
-@app.route('/related', methods=['POST'])
+@app.route('/related', methods=['GET'])
 
 def related():
     submission_id = request.args.get('submission_id')
