@@ -30,8 +30,8 @@ def recommend():
 def related():
     implicit_model = joblib.load('./model/user_submissions_model.pkl')
     user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
-    submission_id = request.args.get('submission_id')
-    related = implicit_model.similar_items(int(submission_id), N=20)
+    assignment_id = request.args.get('assignment_id')
+    related = implicit_model.similar_items(int(assignment_id), N=20)
     related = dict(related)
     related = {str(key): str(value) for key, value in related.items()}
     return json.dumps(related)
