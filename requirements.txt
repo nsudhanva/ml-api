@@ -65,7 +65,7 @@ MarkupSafe==1.0
 matplotlib==2.2.2
 mccabe==0.6.1
 mistune==0.8.3
-mkl-fft==1.0.2
+mkl-fft==1.0.0
 mkl-random==1.0.1
 nbconvert==5.3.1
 nbformat==4.4.0
@@ -99,7 +99,6 @@ pyparsing==2.2.0
 PySocks==1.6.8
 python-dateutil==2.7.3
 pytz==2018.5
-pywinpty==0.5.4
 PyYAML==3.12
 pyzmq==17.0.0
 QtAwesome==0.4.4
