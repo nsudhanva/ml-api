@@ -14,7 +14,7 @@ def hello():
 @app.route('/recommend', methods=['GET'])
 
 def recommend():
-    implicit_model = joblib.load('./model/user_submissions_model.pkl')
+    implicit_model = joblib.load('./model/user_assignments_model.pkl')
     user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
     user_id = request.args.get('user_id')
     recommendations = implicit_model.recommend(int(user_id), user_assignments_sparse, N=20)
@@ -25,7 +25,7 @@ def recommend():
 @app.route('/related', methods=['GET'])
 
 def related():
-    implicit_model = joblib.load('./model/user_submissions_model.pkl')
+    implicit_model = joblib.load('./model/user_assignments_model.pkl')
     user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
     assignment_id = request.args.get('assignment_id')
     related = implicit_model.similar_items(int(assignment_id), N=20)
