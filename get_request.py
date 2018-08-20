@@ -1,8 +1,8 @@
 import requests
 import json
 
-req_rec = requests.get("http://127.0.0.1:5000/recommend", params={'user_id': 35})
-req_rel = requests.get("http://127.0.0.1:5000/related", params={'assignment_id': 30})
+req_rec = requests.get("http://127.0.0.1:5000/recommend", params={'user_id': 35, 'num': 40})
+req_rel = requests.get("http://127.0.0.1:5000/related", params={'assignment_id': 30, 'num': 30})
 
 print(req_rec.status_code, req_rec.reason)
 print(req_rel.status_code, req_rel.reason)
