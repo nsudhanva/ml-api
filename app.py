@@ -23,7 +23,11 @@ def recommend():
     user_id = request.args.get('user_id')
     recommendations = implicit_model.recommend(int(user_id), user_assignments_sparse, N=20)
     list_of_recommended_submissions = [i[0] for i in recommendations]
-    list_of_recommended_submissions = user_submissions['id_assignments'][list_of_recommended_submissions].to_dict()
+    correlation = [str(i[1]) for i in recommendations]
+    list_of_recommended_submissions = user_submissions['id_assignments'][list_of_recommended_submissions]
+    list_of_recommended_submissions = [str(i) for i in list_of_recommended_submissions]
+    list_of_recommended_submissions = dict(zip(list_of_recommended_submissions, correlation))
+    print(list_of_recommended_submissions)
     return json.dumps(list_of_recommended_submissions)
 
 @app.route('/related', methods=['GET'])
@@ -31,9 +35,11 @@ def recommend():
 def related():
     assignment_id = request.args.get('assignment_id')
     related = implicit_model.similar_items(int(assignment_id), N=20)
-    
     list_of_related_submissions = [i[0] for i in related]
+    correlation = [str(i[1]) for i in related]
     list_of_related_submissions = user_submissions['user_id_submissions'][list_of_related_submissions].to_dict()
+    list_of_related_submissions = [str(i) for i in list_of_related_submissions]
+    list_of_related_submissions = dict(zip(list_of_related_submissions, correlation))
     return json.dumps(list_of_related_submissions)
 
 if __name__ == '__main__':
