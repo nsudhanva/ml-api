@@ -10,6 +10,10 @@ implicit_model = joblib.load('./model/user_assignments_model.pkl')
 user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
 user_submissions = pd.read_csv('./model/user_submissions.csv')
 
+error_rec = {'Error': 'No recommendations'}
+error_rel = {'Error': 'No relations'}
+error_num = {'Error': 'Number out of bound'}
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -22,28 +26,57 @@ def hello():
 def recommend():
     user_id = request.args.get('user_id')
     num = request.args.get('num')
-    recommendations = implicit_model.recommend(int(user_id), user_assignments_sparse, int(num))
-    list_of_recommended_submissions = [i[0] for i in recommendations]
-    correlation = [str(i[1]) for i in recommendations]
-    list_of_recommended_submissions = user_submissions['id_assignments'][list_of_recommended_submissions]
-    list_of_recommended_submissions = [str(i) for i in list_of_recommended_submissions]
-    list_of_recommended_submissions = dict(zip(list_of_recommended_submissions, correlation))
-    # print(list_of_recommended_submissions)
-    return json.dumps(list_of_recommended_submissions)
+
+    if user_id is None:
+        return json.dumps(error_rec)
+
+    if num is None:
+        return json.dumps(error_num)
+    else:
+        try:
+            recommendations = implicit_model.recommend(int(user_id), user_assignments_sparse, int(num))
+        except Exception:
+            recommendations = None
+
+        if recommendations is not None:
+            list_of_recommended_submissions = [i[0] for i in recommendations]
+            correlation = [str(i[1]) for i in recommendations]
+            list_of_recommended_submissions = user_submissions['id_assignments'][list_of_recommended_submissions]
+            list_of_recommended_submissions = [str(i) for i in list_of_recommended_submissions]
+            list_of_recommended_submissions = dict(zip(list_of_recommended_submissions, correlation))
+            # print(list_of_recommended_submissions)
+            return json.dumps(list_of_recommended_submissions)
+        else:
+            return json.dumps(error_rec)
+        
 
 @app.route('/related', methods=['GET'])
 
 def related():
     assignment_id = request.args.get('assignment_id')
     num = request.args.get('num')
-    related = implicit_model.similar_items(int(assignment_id), int(num))
-    list_of_related_submissions = [i[0] for i in related]
-    correlation = [str(i[1]) for i in related]
-    list_of_related_submissions = user_submissions['id_assignments'][list_of_related_submissions]
-    list_of_related_submissions = [str(i) for i in list_of_related_submissions]
-    list_of_related_submissions = dict(zip(list_of_related_submissions, correlation))
-    # print(list_of_related_submissions)
-    return json.dumps(list_of_related_submissions)
+
+    if assignment_id is None:
+        return json.dumps(error_rel)
+
+    if num is None:
+        return json.dumps(error_num)
+    else:
+        try:
+            related = implicit_model.similar_items(int(assignment_id), int(num))
+        except Exception:
+            related = None
+
+        if related is not None:
+            list_of_related_submissions = [i[0] for i in related]
+            correlation = [str(i[1]) for i in related]
+            list_of_related_submissions = user_submissions['id_assignments'][list_of_related_submissions]
+            list_of_related_submissions = [str(i) for i in list_of_related_submissions]
+            list_of_related_submissions = dict(zip(list_of_related_submissions, correlation))
+            # print(list_of_related_submissions)
+            return json.dumps(list_of_related_submissions)
+        else:
+            return json.dumps(error_rel)
 
 if __name__ == '__main__':
     app.run()
