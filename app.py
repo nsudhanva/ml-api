@@ -7,7 +7,7 @@ import json
 import implicit
 
 implicit_model = joblib.load('./model/user_assignments_model.pkl')
-user_assignments_sparse = sparse.load_npz('./model/user_assignments.npz')
+user_submissions_pivot = pd.read_csv('./model/user_submissions_pivot.csv', index_col='id_assignments')
 user_submissions = pd.read_csv('./model/user_submissions.csv')
 
 error_rec = {'Error': 'No recommendations'}
@@ -27,14 +27,18 @@ def recommend():
     user_id = request.args.get('user_id')
     num = request.args.get('num')
 
-    if user_id is None:
+    user_columns = list(user_submissions_pivot.columns)
+    user_columns = [int(i) for i in user_columns]
+    user_id_index = user_columns.index(int(user_id))
+
+    if user_id_index is None:
         return json.dumps(error_rec)
 
     if num is None:
         return json.dumps(error_num)
     else:
         try:
-            recommendations = implicit_model.recommend(int(user_id), user_assignments_sparse, int(num))
+            recommendations = implicit_model.recommend(int(user_id_index), sparse.csr_matrix(user_submissions_pivot.values), int(num))
         except Exception:
             recommendations = None
 
@@ -56,14 +60,16 @@ def related():
     assignment_id = request.args.get('assignment_id')
     num = request.args.get('num')
 
-    if assignment_id is None:
+    assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
+
+    if assignment_id_index is None:
         return json.dumps(error_rel)
 
     if num is None:
         return json.dumps(error_num)
     else:
         try:
-            related = implicit_model.similar_items(int(assignment_id), int(num))
+            related = implicit_model.similar_items(int(assignment_id_index), int(num))
         except Exception:
             related = None
 
