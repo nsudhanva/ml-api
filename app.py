@@ -27,12 +27,12 @@ def recommend():
     user_id = request.args.get('user_id')
     num = request.args.get('num')
 
+    if user_id is None:
+        return json.dumps(error_rec)
+
     user_columns = list(user_submissions_pivot.columns)
     user_columns = [int(i) for i in user_columns]
     user_id_index = user_columns.index(int(user_id))
-
-    if user_id_index is None:
-        return json.dumps(error_rec)
 
     if num is None:
         return json.dumps(error_num)
@@ -60,10 +60,10 @@ def related():
     assignment_id = request.args.get('assignment_id')
     num = request.args.get('num')
 
-    assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
-
-    if assignment_id_index is None:
+    if assignment_id is None:
         return json.dumps(error_rel)
+   
+    assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
 
     if num is None:
         return json.dumps(error_num)
