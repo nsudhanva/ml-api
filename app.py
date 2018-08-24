@@ -36,12 +36,12 @@ def recommend():
 
         user_columns = list(user_submissions_pivot.columns)
         user_columns = [int(i) for i in user_columns]
-        user_id_index = user_columns.index(int(user_id))
 
         if num is None:
             return json.dumps(error_num)
         else:
             try:
+                user_id_index = user_columns.index(int(user_id))
                 recommendations = model_als.recommend(int(user_id_index), sparse.csr_matrix(user_submissions_pivot.values), int(num))
             except Exception:
                 recommendations = None
@@ -62,12 +62,12 @@ def recommend():
 
         user_columns = list(user_submissions_pivot.columns)
         user_columns = [int(i) for i in user_columns]
-        user_id_index = user_columns.index(int(user_id))
 
         if num is None:
             return json.dumps(error_num)
         else:
             try:
+                user_id_index = user_columns.index(int(user_id))
                 recommendations = model_bayes.recommend(int(user_id_index), sparse.csr_matrix(user_submissions_pivot.values), int(num))
             except Exception:
                 recommendations = None
@@ -97,12 +97,11 @@ def related():
         if assignment_id is None:
             return json.dumps(error_rel)
     
-        assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
-
         if num is None:
             return json.dumps(error_num)
         else:
             try:
+                assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
                 related = model_als.similar_items(int(assignment_id_index), int(num))
             except Exception:
                 related = None
@@ -121,12 +120,12 @@ def related():
         if assignment_id is None:
             return json.dumps(error_rel)
     
-        assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
 
         if num is None:
             return json.dumps(error_num)
         else:
             try:
+                assignment_id_index = list(user_submissions_pivot.index).index(int(assignment_id))
                 related = model_bayes.similar_items(int(assignment_id_index), int(num))
             except Exception:
                 related = None
