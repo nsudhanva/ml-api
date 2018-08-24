@@ -43,13 +43,13 @@ def recommend():
             recommendations = None
 
         if recommendations is not None:
-            list_of_recommended_submissions = [i[0] for i in recommendations]
+            list_of_recommended_submissions_als = [i[0] for i in recommendations]
             correlation = [str(i[1]) for i in recommendations]
-            list_of_recommended_submissions = user_submissions['id_assignments'][list_of_recommended_submissions]
-            list_of_recommended_submissions = [str(i) for i in list_of_recommended_submissions]
-            list_of_recommended_submissions = dict(zip(list_of_recommended_submissions, correlation))
-            # print(list_of_recommended_submissions)
-            return json.dumps(list_of_recommended_submissions)
+            list_of_recommended_submissions_als = user_submissions['id_assignments'][list_of_recommended_submissions_als]
+            list_of_recommended_submissions_als = [str(i) for i in list_of_recommended_submissions_als]
+            list_of_recommended_submissions_als = dict(zip(list_of_recommended_submissions_als, correlation))
+            # print(list_of_recommended_submissions_als)
+            return json.dumps(list_of_recommended_submissions_als)
         else:
             return json.dumps(error_rec)
         
@@ -74,13 +74,13 @@ def related():
             related = None
 
         if related is not None:
-            list_of_related_submissions = [i[0] for i in related]
+            list_of_related_submissions_als = [i[0] for i in related]
             correlation = [str(i[1]) for i in related]
-            list_of_related_submissions = user_submissions['id_assignments'][list_of_related_submissions]
-            list_of_related_submissions = [str(i) for i in list_of_related_submissions]
-            list_of_related_submissions = dict(zip(list_of_related_submissions, correlation))
-            # print(list_of_related_submissions)
-            return json.dumps(list_of_related_submissions)
+            list_of_related_submissions_als = user_submissions['id_assignments'][list_of_related_submissions_als]
+            list_of_related_submissions_als = [str(i) for i in list_of_related_submissions_als]
+            list_of_related_submissions_als = dict(zip(list_of_related_submissions_als, correlation))
+            # print(list_of_related_submissions_als)
+            return json.dumps(list_of_related_submissions_als)
         else:
             return json.dumps(error_rel)
 
