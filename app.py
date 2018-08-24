@@ -56,7 +56,7 @@ def recommend():
                 return json.dumps(list_of_recommended_submissions_als)
             else:
                 return json.dumps(error_rec)
-    else if algo == 'bayes':
+    elif algo == 'bayes':
         if user_id is None:
             return json.dumps(error_rec)
 
@@ -117,7 +117,7 @@ def related():
                 return json.dumps(list_of_related_submissions_als)
             else:
                 return json.dumps(error_rel)
-    else if algo == 'bayes':
+    elif algo == 'bayes':
         if assignment_id is None:
             return json.dumps(error_rel)
     
