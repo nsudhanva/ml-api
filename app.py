@@ -6,10 +6,10 @@ import pandas as pd
 import json
 import implicit
 
-model_als = joblib.load('./model/user_assignments_model_als.pkl')
-model_bayes = joblib.load('./model/user_assignments_model_bayes.pkl')
-user_submissions_pivot = pd.read_csv('./model/user_submissions_pivot.csv', index_col='id_assignments')
-user_submissions = pd.read_csv('./model/user_submissions.csv')
+model_als = joblib.load('../model/user_assignments_model_als.pkl')
+model_bayes = joblib.load('../model/user_assignments_model_bayes.pkl')
+user_submissions_pivot = pd.read_csv('../model/user_submissions_pivot.csv', index_col='id_assignments')
+user_submissions = pd.read_csv('../model/user_submissions.csv')
 
 error_rec = {'Error': 'No recommendations'}
 error_rel = {'Error': 'No relations'}
