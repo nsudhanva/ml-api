@@ -1,0 +1,19 @@
+
+code/
+papers/~$attributes.xlsx
+papers/anonymisedData.zip
+papers/Gombolay_TCIAIG_2017.pdf
+papers/Math_And_Reading_Proficiency_in_Iowa_by_School_Year__Public_School_District_and_Grade_Level.csv
+*.pdf
+*.csv
+assets/~$points.xlsx
+docs/~$search Paper - DCT - ML - API.docx
+docs/~WRL0948.tmp
+Include/
+Lib/
+*.pyc
+Scripts/activate
+*.tcl
+*.msg
+*.gif
+tcl/tk8.6/demos/rolodex
