@@ -143,6 +143,14 @@ def related():
     else:
         return json.dumps(error_algo)
 
+@app.route('/enquiries', methods=['POST'])
+
+def enquiries():
+    f = open('enquiries.txt','w')
+    f.write(request.form['name'])
+    f.write(request.form['email'])
+    f.close()
+
 if __name__ == '__main__':
     app.run()
 
