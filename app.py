@@ -18,7 +18,7 @@ error_num = {'Error': 'Number out of bound'}
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 
 def hello():
     return "Hello World!"
@@ -146,10 +146,15 @@ def related():
 @app.route('/enquiries', methods=['POST'])
 
 def enquiries():
-    f = open('enquiries.txt','w')
-    f.write(request.form['name'])
-    f.write(request.form['email'])
-    f.close()
+    # f = open('enquiries.txt','w')
+    # f.write(request)
+    # f.write(request.form['name'])
+    # f.write(request.form['email'])
+    # f.close()
+    print(request.data)
+    print(request.form['name'])
+    print(request.form['email'])
+    print(request.form['phone'])
 
 if __name__ == '__main__':
     app.run()
